@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -57,18 +59,35 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
             txtIdProdus.Clear();
             txtNumeProdus.Clear();
             txtUnitate.Clear();
+
+            DatabaseManager db = new DatabaseManager();
+            db.AdaugaProdus(id, nume, unitate);
+            MessageBox.Show("Produsul a fost adaugat in baza de date.");
+            ActualizeazaListaProduse();
         }
 
         private void btnStergeProdus_Click(object sender, EventArgs e)
         {
-            if (lstProduse.SelectedItem == null)
+            if (lstProduse.SelectedItem == null) 
+            {
+                MessageBox.Show("Selecteaza un produs din lista.");
                 return;
+            }
 
-            var produsSelectat = (Produse)lstProduse.SelectedItem;
-
+            Produse produsSelectat = (Produse)lstProduse.SelectedItem;
             produse.Remove(produsSelectat);
             lstProduse.Items.Remove(produsSelectat);
+
+            
             cmbProduse.Items.Remove(produsSelectat);
+
+            
+            DatabaseManager db = new DatabaseManager();
+            db.StergeProdus(produsSelectat.Id);
+            MessageBox.Show("Produsul a fost sters din baza de date.");
+            ActualizeazaListaProduse();
+
+
         }
 
         private void btnAdaugaLot_Click(object sender, EventArgs e)
@@ -110,15 +129,33 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 
             txtIdLot.Clear();
             txtCantitate.Clear();
+
+            DatabaseManager db = new DatabaseManager();
+            db.AdaugaLot(lot);
+            MessageBox.Show("Lotul a fost adaugat in baza de date.");
+            ActualizeazaListaProduse();
         }
 
         private void btnStergeLot_Click(object sender, EventArgs e)
         {
-            var lotSelectat = (LotFabricatie)lstLoturi.SelectedItem;
-            loturi.Remove(lotSelectat);
+            if (lstLoturi.SelectedItem == null)
+            {
+                MessageBox.Show("Selecteaza un lot din lista.");
+                return;
+            }
 
+            LotFabricatie lotSelectat = (LotFabricatie)lstLoturi.SelectedItem;
+            loturi.Remove(lotSelectat);
             lstLoturi.Items.Remove(lotSelectat);
+
+
             cmbLoturi.Items.Remove(lotSelectat);
+
+
+            DatabaseManager db = new DatabaseManager();
+            db.StergeLot(lotSelectat.IdLot);
+            MessageBox.Show("Lotul a fost sters din baza de date.");
+            ActualizeazaListaProduse();
         }
 
         private void btnAdaugaFisa_Click(object sender, EventArgs e)
@@ -143,7 +180,7 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
                 MessageBox.Show("Selecteaza un lot din lista.");
                 return;
             }
-            
+
             if (fise.Any(f => f.Id == id))
             {
                 MessageBox.Show("Exista deja o fisa cu acest ID.");
@@ -162,14 +199,31 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
             txtIdFisa.Clear();
             txtMaterial.Clear();
             txtCantMaterial.Clear();
+
+            DatabaseManager db = new DatabaseManager();
+            db.AdaugaFisa(fisa);
+            MessageBox.Show("Fisa a fost adaugata in baza de date.");
+            ActualizeazaListaProduse();
         }
 
         private void btnStergeFisa_Click(object sender, EventArgs e)
         {
-            var fisaSelectata = (FisaConsum)lstFise.SelectedItem;
-            fise.Remove(fisaSelectata);
+            if (lstFise.SelectedItem == null)
+            {
+                MessageBox.Show("Selecteaza o fisa din lista.");
+                return;
+            }
 
+            FisaConsum fisaSelectata = (FisaConsum)lstFise.SelectedItem;
+            fise.Remove(fisaSelectata);
             lstFise.Items.Remove(fisaSelectata);
+
+
+
+            DatabaseManager db = new DatabaseManager();
+            db.StergeLot(fisaSelectata.Id);
+            MessageBox.Show("Fisa a fost stearsa din baza de date.");
+            ActualizeazaListaProduse();
         }
 
         private void LstProduse_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,17 +242,17 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 
         private void LstFise_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void AfiseazaGraficCantitatiProduse()
@@ -231,5 +285,54 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
         {
             AfiseazaGraficCantitatiProduse();
         }
+
+        private bool Conectat()
+        {
+            string connString = $@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Application.StartupPath}\ProjectDatabase.accdb;";
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connString))
+                {
+                    conn.Open();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (Conectat())
+                MessageBox.Show("Baza de date este conectata.");
+            else
+                MessageBox.Show("Conexiunea a esuat.");
+        }
+
+        private void ActualizeazaListaProduse()
+        {
+            DatabaseManager db = new DatabaseManager();
+            cmbProduse.Items.Clear();
+
+            foreach (Produse produs in produse)
+            {
+                cmbProduse.Items.Add(produs);
+            }
+        }
+
+        private void ActualizeazaListaProduseListBox()
+        {
+            lstProduse.Items.Clear();
+
+            foreach (Produse produs in produse)
+            {
+                lstProduse.Items.Add(produs);
+            }
+        }
     }
+
+
 }

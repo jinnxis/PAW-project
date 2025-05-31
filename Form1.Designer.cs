@@ -28,9 +28,9 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtIdProdus = new System.Windows.Forms.TextBox();
             this.txtNumeProdus = new System.Windows.Forms.TextBox();
             this.txtUnitate = new System.Windows.Forms.TextBox();
@@ -63,7 +63,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btnGrafic = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,21 +123,21 @@
             // 
             // txtCantitate
             // 
-            this.txtCantitate.Location = new System.Drawing.Point(432, 85);
+            this.txtCantitate.Location = new System.Drawing.Point(432, 143);
             this.txtCantitate.Name = "txtCantitate";
             this.txtCantitate.Size = new System.Drawing.Size(100, 20);
             this.txtCantitate.TabIndex = 7;
             // 
             // dtpData
             // 
-            this.dtpData.Location = new System.Drawing.Point(387, 141);
+            this.dtpData.Location = new System.Drawing.Point(387, 198);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(200, 20);
             this.dtpData.TabIndex = 8;
             // 
             // cmbProduse
             // 
-            this.cmbProduse.Location = new System.Drawing.Point(421, 197);
+            this.cmbProduse.Location = new System.Drawing.Point(421, 85);
             this.cmbProduse.Name = "cmbProduse";
             this.cmbProduse.Size = new System.Drawing.Size(121, 21);
             this.cmbProduse.TabIndex = 9;
@@ -168,28 +169,28 @@
             // 
             // txtIdFisa
             // 
-            this.txtIdFisa.Location = new System.Drawing.Point(836, 36);
+            this.txtIdFisa.Location = new System.Drawing.Point(847, 36);
             this.txtIdFisa.Name = "txtIdFisa";
             this.txtIdFisa.Size = new System.Drawing.Size(100, 20);
             this.txtIdFisa.TabIndex = 13;
             // 
             // txtMaterial
             // 
-            this.txtMaterial.Location = new System.Drawing.Point(836, 85);
+            this.txtMaterial.Location = new System.Drawing.Point(843, 143);
             this.txtMaterial.Name = "txtMaterial";
             this.txtMaterial.Size = new System.Drawing.Size(100, 20);
             this.txtMaterial.TabIndex = 14;
             // 
             // txtCantMaterial
             // 
-            this.txtCantMaterial.Location = new System.Drawing.Point(836, 141);
+            this.txtCantMaterial.Location = new System.Drawing.Point(847, 198);
             this.txtCantMaterial.Name = "txtCantMaterial";
             this.txtCantMaterial.Size = new System.Drawing.Size(100, 20);
             this.txtCantMaterial.TabIndex = 15;
             // 
             // cmbLoturi
             // 
-            this.cmbLoturi.Location = new System.Drawing.Point(826, 197);
+            this.cmbLoturi.Location = new System.Drawing.Point(841, 85);
             this.cmbLoturi.Name = "cmbLoturi";
             this.cmbLoturi.Size = new System.Drawing.Size(121, 21);
             this.cmbLoturi.TabIndex = 16;
@@ -258,7 +259,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(435, 63);
+            this.label5.Location = new System.Drawing.Point(418, 121);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(124, 13);
             this.label5.TabIndex = 24;
@@ -267,7 +268,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(418, 121);
+            this.label6.Location = new System.Drawing.Point(418, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(145, 13);
             this.label6.TabIndex = 25;
@@ -276,7 +277,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(432, 178);
+            this.label7.Location = new System.Drawing.Point(432, 66);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(106, 13);
             this.label7.TabIndex = 26;
@@ -285,7 +286,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(851, 13);
+            this.label8.Location = new System.Drawing.Point(860, 13);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 13);
             this.label8.TabIndex = 27;
@@ -294,7 +295,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(808, 63);
+            this.label9.Location = new System.Drawing.Point(823, 121);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(162, 13);
             this.label9.TabIndex = 28;
@@ -303,7 +304,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(823, 121);
+            this.label10.Location = new System.Drawing.Point(823, 178);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(147, 13);
             this.label10.TabIndex = 29;
@@ -312,7 +313,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(851, 178);
+            this.label11.Location = new System.Drawing.Point(862, 66);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(85, 13);
             this.label11.TabIndex = 30;
@@ -320,34 +321,46 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(1062, 17);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(468, 449);
             this.chart1.TabIndex = 31;
             this.chart1.Text = "chart1";
             // 
-            // btnGrafic
+            // button1
             // 
-            this.btnGrafic.Location = new System.Drawing.Point(1121, 490);
-            this.btnGrafic.Name = "btnGrafic";
-            this.btnGrafic.Size = new System.Drawing.Size(352, 23);
-            this.btnGrafic.TabIndex = 32;
-            this.btnGrafic.Text = "Afiseaza grafic";
-            this.btnGrafic.UseVisualStyleBackColor = true;
-            this.btnGrafic.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Location = new System.Drawing.Point(1121, 490);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(352, 23);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Afiseaza grafic";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(121, 539);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(781, 23);
+            this.button2.TabIndex = 33;
+            this.button2.Text = "Verifica conexiunea la baza de date.";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1550, 541);
-            this.Controls.Add(this.btnGrafic);
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.ClientSize = new System.Drawing.Size(1550, 587);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -400,7 +413,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Button btnGrafic;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
