@@ -28,6 +28,9 @@
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.txtIdProdus = new System.Windows.Forms.TextBox();
             this.txtNumeProdus = new System.Windows.Forms.TextBox();
             this.txtUnitate = new System.Windows.Forms.TextBox();
@@ -59,6 +62,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnGrafic = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtIdProdus
@@ -312,9 +318,37 @@
             this.label11.TabIndex = 30;
             this.label11.Text = "Selecteaza lotul.";
             // 
+            // chart1
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(1062, 17);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(468, 449);
+            this.chart1.TabIndex = 31;
+            this.chart1.Text = "chart1";
+            // 
+            // btnGrafic
+            // 
+            this.btnGrafic.Location = new System.Drawing.Point(1121, 490);
+            this.btnGrafic.Name = "btnGrafic";
+            this.btnGrafic.Size = new System.Drawing.Size(352, 23);
+            this.btnGrafic.TabIndex = 32;
+            this.btnGrafic.Text = "Afiseaza grafic";
+            this.btnGrafic.UseVisualStyleBackColor = true;
+            this.btnGrafic.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1014, 560);
+            this.ClientSize = new System.Drawing.Size(1550, 541);
+            this.Controls.Add(this.btnGrafic);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -348,6 +382,7 @@
             this.Controls.Add(this.lstFise);
             this.Name = "Form1";
             this.Text = "Gestionare productie";
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,6 +399,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button btnGrafic;
     }
 }
 

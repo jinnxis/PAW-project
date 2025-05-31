@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 {
@@ -32,11 +33,22 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
         private void btnAdaugaProdus_Click(object sender, EventArgs e)
         {
             int id = int.Parse(txtIdProdus.Text);
-            string nume = txtNumeProdus.Text.Trim();
-            string unitate = txtUnitate.Text.Trim();
+            string nume = txtNumeProdus.Text;
+            string unitate = txtUnitate.Text;
 
+            if (!int.TryParse(txtIdProdus.Text, out id))
+            {
+                MessageBox.Show("ID-ul produsului trebuie sa fie un numar.");
+                return;
+            }
 
-            var p = new Produse(id, nume, unitate);
+            if (produse.Any(prod => prod.Id == id))
+            {
+                MessageBox.Show("Exista deja un produs cu acest ID.");
+                return;
+            }
+
+            Produse p = new Produse(id, nume, unitate);
             produse.Add(p);
 
             lstProduse.Items.Add(p);
@@ -61,13 +73,36 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 
         private void btnAdaugaLot_Click(object sender, EventArgs e)
         {
-            int idLot = int.Parse(txtIdLot.Text);
-            int cantitate = int.Parse(txtCantitate.Text);
+            int id;
+            int cantitate;
+            if (!int.TryParse(txtIdLot.Text, out id))
+            {
+                MessageBox.Show("ID-ul lotului trebuie sa fie un numar intreg.");
+                return;
+            }
+
+            if (!int.TryParse(txtCantitate.Text, out cantitate))
+            {
+                MessageBox.Show("Cantitatea trebuie sa fie un numar intreg.");
+                return;
+            }
+
+            if (cmbProduse.SelectedItem == null)
+            {
+                MessageBox.Show("Selecteaza un produs din lista.");
+                return;
+            }
+
+            if (loturi.Any(l => l.IdLot == id))
+            {
+                MessageBox.Show("Exista deja un lot cu acest ID.");
+                return;
+            }
+
             DateTime data = dtpData.Value;
+            Produse produs = (Produse)cmbProduse.SelectedItem;
 
-            var produsSelectat = (Produse)cmbProduse.SelectedItem;
-
-            var lot = new LotFabricatie(idLot, produsSelectat, cantitate, data);
+            LotFabricatie lot = new LotFabricatie(id, produs, cantitate, data);
             loturi.Add(lot);
 
             lstLoturi.Items.Add(lot);
@@ -88,13 +123,38 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 
         private void btnAdaugaFisa_Click(object sender, EventArgs e)
         {
-            int idFisa = int.Parse(txtIdFisa.Text);
-            string material = txtMaterial.Text.Trim();
-            int cantMaterial = int.Parse(txtCantMaterial.Text);
+            int id = int.Parse(txtIdFisa.Text);
+            int cant;
 
-            var lotSelectat = (LotFabricatie)cmbLoturi.SelectedItem;
+            if (!int.TryParse(txtIdFisa.Text, out id))
+            {
+                MessageBox.Show("ID-ul fisei trebuie sa fie un numar intreg.");
+                return;
+            }
 
-            var fisa = new FisaConsum(idFisa, lotSelectat, material, cantMaterial);
+            if (!int.TryParse(txtCantMaterial.Text, out cant))
+            {
+                MessageBox.Show("Cantitatea materialului trebuie sa fie un numar.");
+                return;
+            }
+
+            if (cmbLoturi.SelectedItem == null)
+            {
+                MessageBox.Show("Selecteaza un lot din lista.");
+                return;
+            }
+            
+            if (fise.Any(f => f.Id == id))
+            {
+                MessageBox.Show("Exista deja o fisa cu acest ID.");
+                return;
+            }
+
+            LotFabricatie lot = (LotFabricatie)cmbLoturi.SelectedItem;
+            string material = txtMaterial.Text;
+            int cantitate = int.Parse(txtCantMaterial.Text);
+
+            FisaConsum fisa = new FisaConsum(id, lot, material, cantitate);
             fise.Add(fisa);
 
             lstFise.Items.Add(fisa);
@@ -112,7 +172,6 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
             lstFise.Items.Remove(fisaSelectata);
         }
 
-        // Evenimente auxiliare (opțional)
         private void LstProduse_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbProduse.Items.Clear();
@@ -129,18 +188,48 @@ namespace Proiect_BABOIU_BIANCA_GABRIELA_1053
 
         private void LstFise_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Poți adăuga afișare detalii dacă vrei
+            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
-            //
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //
+            
         }
 
+        private void AfiseazaGraficCantitatiProduse()
+        {
+            chart1.Series.Clear();
+            chart1.ChartAreas.Clear();
+
+            chart1.ChartAreas.Add(new ChartArea("MainArea"));
+
+            Series serie = new Series("Cantitati produse");
+            serie.ChartType = SeriesChartType.Column;
+
+            var cantitatiPerProdus = loturi
+                .GroupBy(l => l.ProdusFabricat.Nume)
+                .Select(g => new
+                {
+                    NumeProdus = g.Key,
+                    CantitateTotala = g.Sum(l => l.Cantitate)
+                });
+
+            foreach (var item in cantitatiPerProdus)
+            {
+                serie.Points.AddXY(item.NumeProdus, item.CantitateTotala);
+            }
+
+            chart1.Series.Add(serie);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AfiseazaGraficCantitatiProduse();
+        }
     }
 }
